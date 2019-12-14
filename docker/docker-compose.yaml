@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  # ----------------------------------
+  #   WORKSPACE
+  # ----------------------------------
+  perl:
+    build:
+      context: ./perl
+    volumes:
+      - ../:/usr/src/local
+      - /usr/src/local/docker
+      - ./logs:/usr/src/local/app/log
+    networks:
+      - appnet
+    command: >
+        bash -c "rm -f app/*.pid && /usr/local/bin/hypnotoad -f app/action.px"
+  # ----------------------------------
+  #   WEB SERVER
+  # ----------------------------------
+  nginx:
+    build:
+      context: ./nginx
+    depends_on:
+      - perl
+    volumes:
+      - ../static:/var/www/public
+      - ./nginx/logs:/var/www/logs
+    networks:
+      - appnet
+    ports:
+      - 80:80
+
+networks:
+  appnet:
+    driver: bridge
