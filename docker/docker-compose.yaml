@@ -10,11 +10,11 @@ services:
     volumes:
       - ../:/usr/src/local
       - /usr/src/local/docker
-      - ./logs:/usr/src/local/app/log
+      - ./logs:/usr/src/local/api/log
     networks:
       - appnet
     command: >
-        bash -c "rm -f app/*.pid && /usr/local/bin/hypnotoad -f app/action.px"
+        bash -c "rm -f api/*.pid && /usr/local/bin/hypnotoad -f api/action.px"
   # ----------------------------------
   #   WEB SERVER
   # ----------------------------------
