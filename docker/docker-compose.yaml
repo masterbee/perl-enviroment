@@ -2,7 +2,7 @@ version: '3'
 
 services:
   # ----------------------------------
-  #   WORKSPACE
+  #   MOJO API INSTANCES
   # ----------------------------------
   private:
     build:
@@ -24,6 +24,9 @@ services:
       - appnet
     command: >
         bash -c "rm -f *.pid && /usr/local/bin/hypnotoad -f index.toad"
+  # ----------------------------------
+  #   DATABASE
+  # ----------------------------------
   # ----------------------------------
   #   WEB SERVER
   # ----------------------------------

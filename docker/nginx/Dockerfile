@@ -4,4 +4,4 @@ RUN mkdir /var/www
 RUN mkdir /var/www/public
 RUN mkdir /var/www/private
 
-COPY sites-available /etc/nginx/sites-available
+COPY conf.d/default.conf /etc/nginx/conf.d/default.conf
