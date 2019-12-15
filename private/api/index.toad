@@ -1,0 +1,7 @@
+use Mojolicious::Lite;
+
+plugin Config => {file => 'index.conf' };
+
+get '/' => {text => 'Hello Wor...ALL GLORY TO THE HYPNOTOAD!(Private)'};
+
+app->start;

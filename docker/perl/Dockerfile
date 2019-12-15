@@ -1,4 +1,4 @@
-FROM perl:5.30
+FROM perl:latest
 
 RUN mkdir -p /usr/src/local
     

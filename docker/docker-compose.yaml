@@ -4,27 +4,35 @@ services:
   # ----------------------------------
   #   WORKSPACE
   # ----------------------------------
-  perl:
+  private:
     build:
       context: ./perl
     volumes:
-      - ../:/usr/src/local
-      - /usr/src/local/docker
-      - ./logs:/usr/src/local/api/log
+      - ../private/api:/usr/src/local
+      - ./perl/logs/private:/usr/src/local/log
     networks:
       - appnet
     command: >
-        bash -c "rm -f api/*.pid && /usr/local/bin/hypnotoad -f api/action.px"
+        bash -c "rm -f *.pid && /usr/local/bin/hypnotoad -f index.toad"
+  public:
+    build:
+      context: ./perl
+    volumes:
+      - ../public/api:/usr/src/local
+      - ./perl/logs/public:/usr/src/local/log
+    networks:
+      - appnet
+    command: >
+        bash -c "rm -f *.pid && /usr/local/bin/hypnotoad -f index.toad"
   # ----------------------------------
   #   WEB SERVER
   # ----------------------------------
   nginx:
     build:
       context: ./nginx
-    depends_on:
-      - perl
     volumes:
-      - ../static:/var/www/public
+      - ../public:/var/www/public
+      - ../private:/var/www/private
       - ./nginx/logs:/var/www/logs
     networks:
       - appnet
